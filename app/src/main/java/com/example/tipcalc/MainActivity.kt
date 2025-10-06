@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -49,6 +51,7 @@ fun Order(modifier: Modifier = Modifier)
 {
     var orderAmount by remember { mutableStateOf("") }
     var Count by remember { mutableStateOf("") }
+    var sliderValue by remember { mutableStateOf(0f) }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -106,6 +109,28 @@ fun Order(modifier: Modifier = Modifier)
                         fontSize = 14.sp,
                         color = Color.Black)
                 )
+            }
+        }
+        // Слайдер
+        Column {
+            Text(
+                text = "Чаевые:",
+                fontSize = 15.sp,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Slider(
+                value = sliderValue,
+                onValueChange = { sliderValue = it },
+                valueRange = 0f..25f,
+            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "0")
+                Text(text = "25")
             }
         }
     }
