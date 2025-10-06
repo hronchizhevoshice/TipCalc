@@ -53,6 +53,14 @@ fun Order(modifier: Modifier = Modifier)
     var Count by remember { mutableStateOf("") }
     var sliderValue by remember { mutableStateOf(0f) }
 
+    val discount = when (Count.toIntOrNull() ?: 0) {
+        in 1..2 -> 3
+        in 3..5 -> 5
+        in 6..10 -> 7
+        in 11..Int.MAX_VALUE -> 10
+        else -> 0
+    }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
@@ -131,6 +139,52 @@ fun Order(modifier: Modifier = Modifier)
             ) {
                 Text(text = "0")
                 Text(text = "25")
+            }
+        }
+        //скидка
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+        ) {
+            Text(
+                text = "Скидка:",
+                fontSize = 20.sp,
+                modifier=modifier.padding(top = 10.dp)
+            )
+            Row()
+            {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    androidx.compose.material3.RadioButton(
+                        selected = discount == 3,
+                        onClick = {},
+                        enabled = false
+                    )
+                    Text("3%")
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    androidx.compose.material3.RadioButton(
+                        selected = discount == 5,
+                        onClick = {},
+                        enabled = false
+                    )
+                    Text("5%")
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    androidx.compose.material3.RadioButton(
+                        selected = discount == 7,
+                        onClick = {},
+                        enabled = false
+                    )
+                    Text("7%")
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    androidx.compose.material3.RadioButton(
+                        selected = discount == 10,
+                        onClick = {},
+                        enabled = false
+                    )
+                    Text("10%")
+                }
             }
         }
     }
